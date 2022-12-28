@@ -6,3 +6,9 @@
 ``` bash
 sudo docker run hello-world
 ````
+--------------------
+``` bash
+sudo docker ps -a 
+```
+- status: exited
+-------------------------
