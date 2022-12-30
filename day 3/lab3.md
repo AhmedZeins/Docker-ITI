@@ -28,12 +28,12 @@ EXPOSE 5000
 COPY . .
 CMD ["flask", "run"]
 ```
--Build and run your app:
+- Build and run your app:
 
 ```bash
 sudo docker build -t py2:1.0 .
 ```
--Define services in a Compose file
+- Define services in a Compose file
 
 ```yml
 version: "3.9"
