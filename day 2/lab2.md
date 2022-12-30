@@ -13,6 +13,42 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ------------
 ### Problem 2 
+• Single Stage 
+```Dockerfile
+FROM node:alpine3.16
+WORKDIR /app
+COPY package*.json ./
+RUN npm install 
+COPY . .
+EXPOSE 3000 
+CMD [ "npm" , "start" ]
+```
+- then we run this command 
+```bash 
+sudo docker build -t la1:2.0 .
+```
+• multistage 
+```Dockerfile
+#build stage 
+FROM node:alpine3.16 AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install 
+COPY . .
+EXPOSE 3000 
+RUN npm run build 
+
+# deploy stage 
+
+FROM nginx:alpine
+COPY --from=build  /app/build /usr/share/nginx/html
+EXPOSE 80
+ENTRYPOINT [ "nginx", "-g", "deamon off;-" ]
+```
+- then we run this commands 
+```bash 
+sudo docker build -t la2:2.0 .
+```
 ----------------
 ### Problem 3 
 - ipvlan: IPvlan networks give users total control over both IPv4 and IPv6 addressing. The VLAN driver builds on top of that in giving operators complete control of layer 2 VLAN tagging and even IPvlan L3 routing for users interested in underlay network integration. 
